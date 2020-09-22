@@ -1,0 +1,31 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://angry_db_user:FY3asWJhW+Tp\F+h@localhost:5432/angry_site_db"
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+class InfrmtnObjsModel(db.Model):
+    __tablename__ = "infrmtn_objs"
+
+    id_ = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    data = db.Column(db.String())
+    digit = db.Column(db.Integer())
+
+    def __init__(self, name, data, digit):
+        self.name = name
+        self.data = data
+        self.digit = digit
+
+    def __repr__(self):
+        return f"<InfrmObj {self.name}>"
+
+# @app.route('/')
+# def hello():
+#     return {"hello": "world"}
+# 
+# if __name__ == '__main__':
+#     app.run(debug=True)

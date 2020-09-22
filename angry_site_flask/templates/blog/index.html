@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}This site is Angry!{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('blog.create') }}">New post</a>
+  {% endif %}
+  <hr>
+{% endblock %}
+
+{% block content %}
+  <article class="post">
+    <!-- header>
+      <div>
+        <h1></h1>
+      </div>
+    </header -->
+    <p>
+      This site is <i>Angry!</i> beacuse it was made only for show and demonstrate, that I can make something on Flask (even if this 
+      site is just a very little extended example from official Flask's 
+      <a href="https://flask.palletsprojects.com/en/1.1.x/tutorial" target="_blank">"Tutorial"</a>) with PostgreSQL, SQLAlchemy and 
+      React, but I don't like to show and demonstrate, I like to solve real tasks. Make me happy - be sure, that I can solve any your 
+      task with Python, SQLAlchemy, Flask and React (or some other frontend library or framework, e. g. jQuery), and give me a 
+      <i>real task</i>! Thank you! :-) :-)
+    </p>
+  </article>
+  <hr>
+  <hr>
+  	<h1>Posts</h1>
+  <hr>
+  {% for post in posts %}
+    <article class="post">
+      <header>
+        <div>
+	  <h1>{{ post['title'] }}</h1>
+          <div class="about">by {{ post['name'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        {% if g.user['id'] == post['author_id'] %}
+          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+        {% endif %}
+      </header>
+      <p class="body">{{ post['body'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

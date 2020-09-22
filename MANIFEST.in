@@ -1,0 +1,4 @@
+include angry_site_flask/schema.sql
+graft angry_site_flask/static
+graft angry_site_flask/templates
+global-exclude *.pyc
